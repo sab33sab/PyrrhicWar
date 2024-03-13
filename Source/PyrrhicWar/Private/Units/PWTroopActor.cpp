@@ -6,7 +6,6 @@
 #include "PaperSprite.h"
 #include "Kismet/GamePlayStatics.h"
 #include "Engine/DataTable.h"
-//#include "PWHubActor.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogPWTroopActor, All, All);
 
@@ -35,12 +34,6 @@ void APWTroopActor::BeginPlay()
     //HubActor->SetSelectActor(this);
 }
 
-// Called every frame
-void APWTroopActor::Tick(float DeltaTime)
-{
-    Super::Tick(DeltaTime);
-}
-
 void APWTroopActor::OnSelected(UPrimitiveComponent* ClickedComponent, FKey ButtonPressed)
 {
     UE_LOG(LogPWTroopActor, Display, TEXT("Troop is cliked"));
@@ -64,7 +57,7 @@ void APWTroopActor::SetOnMapIcon(ETroopType TroopType)
     }
 
     static const FString ContextString(TEXT("Troop Data Context"));
-    FTroopData* CreatedTroopData= TroopsData->FindRow<FTroopData>(CreatedType, ContextString, true);
+    FTroopData* CreatedTroopData = TroopsData->FindRow<FTroopData>(CreatedType, ContextString, true);
     if (!CreatedTroopData) return;
     UPaperSprite* Icon = CreatedTroopData->OnMapIcon;
     OnMapIconComponent->SetSprite(Icon);

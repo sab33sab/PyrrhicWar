@@ -4,6 +4,9 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/InputComponent.h"
+#include "UI/PWGameHUD.h"
+#include "Maps/PWCityActor.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -30,7 +33,8 @@ void APWPlayerCameraPawn::BeginPlay()
 {
     Super::BeginPlay();
 
-    // SetActorLocation(StartCameraPosition);
+    //APWGameHUD* HUD = Cast<APWGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+    //MouseRightClickEvent.AddUObject(HUD, &APWGameHUD::MouseRightClickEvent);
 }
 
 void APWPlayerCameraPawn::Tick(float DeltaTime)
@@ -43,6 +47,10 @@ void APWPlayerCameraPawn::Tick(float DeltaTime)
 void APWPlayerCameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    //APWGameHUD* HUD = Cast<APWGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+    //PlayerInputComponent->BindAxis("MouseRightClick", this, &APWPlayerCameraPawn::MouseRightClick);
+    PlayerInputComponent->BindAction("MouseRightClick", IE_Pressed, this, &APWPlayerCameraPawn::MouseRightClick);
 }
 
 void APWPlayerCameraPawn::SetCamera()
@@ -77,8 +85,8 @@ void APWPlayerCameraPawn::CameraMoveLeft(FVector2D MousePosition, FVector2D View
     FVector CameraPosition;
     CameraPosition = GetActorLocation();
 
-    CameraPosition.Y =
-        UKismetMathLibrary::FClamp((CameraPosition.Y - CameraSpeed * CameraSpeedDecline), -GlobalMapSize.Y / 2, GlobalMapSize.Y / 2);
+    CameraPosition.X =
+        UKismetMathLibrary::FClamp((CameraPosition.X - CameraSpeed * CameraSpeedDecline), -GlobalMapSize.Y / 2, GlobalMapSize.Y / 2);
     
     /*
     FString CalledFunction = "CameraMoveLeft";
@@ -102,8 +110,8 @@ void APWPlayerCameraPawn::CameraMoveRight(FVector2D MousePosition, FVector2D Vie
     FVector CameraPosition;
     CameraPosition = GetActorLocation();
 
-    CameraPosition.Y =
-        UKismetMathLibrary::FClamp((CameraPosition.Y + CameraSpeed * CameraSpeedDecline), -GlobalMapSize.Y / 2, GlobalMapSize.Y / 2);
+    CameraPosition.X =
+        UKismetMathLibrary::FClamp((CameraPosition.X + CameraSpeed * CameraSpeedDecline), -GlobalMapSize.Y / 2, GlobalMapSize.Y / 2);
 
     /*
     FString CalledFunction = "CameraMoveRight";
@@ -179,3 +187,21 @@ void APWPlayerCameraPawn::PrintLog(FString CalledFunction, FVector2D MousePositi
     UE_LOG(LogPlayerCameraPawn, Display, TEXT("CurrentCameraPosition: %s"), *CurrentCameraPosition.ToString());
 }
 */
+
+void APWPlayerCameraPawn::MouseRightClick() 
+{
+    UE_LOG(LogPlayerCameraPawn, Display, TEXT("Right mouse is clicked"));
+    if (!CurrentCityShownUI) return;
+
+    //MouseRightClickEvent.Broadcast();
+    HideCityUIWidget.Broadcast();
+
+    CurrentCityShownUI = NULL;
+}
+
+void APWPlayerCameraPawn::CityShownUI(APWCityActor* City) 
+{
+    CurrentCityShownUI = City;
+
+    UE_LOG(LogPlayerCameraPawn, Display, TEXT("CityShownUI is %s"), *CurrentCityShownUI->GetName());
+}

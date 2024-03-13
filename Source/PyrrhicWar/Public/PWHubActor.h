@@ -4,12 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-//#include "Units/PWTroopActor.h"
 #include "PWCoreTypes.h"
 #include "PWHubActor.generated.h"
 
 class APWTroopActor;
-//enum class ETroopType : uint8;
 
 UCLASS()
 class PYRRHICWAR_API APWHubActor : public AActor
@@ -35,8 +33,6 @@ protected:
     void GenerateStartActors();
 
 public:
-    // Called every frame
-    virtual void Tick(float DeltaTime) override;
 
     // void SetSelectActor(AActor* Actor) { SelectActor = Actor; }
     // AActor* GetSelectActor() { return SelectActor; }

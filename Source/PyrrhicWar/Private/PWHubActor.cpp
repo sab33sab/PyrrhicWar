@@ -6,8 +6,6 @@
 
 //DEFINE_LOG_CATEGORY_STATIC(LogPWHubActor, All, All);
 
-//class APWTroopActor;
-
 // Sets default values
 APWHubActor::APWHubActor()
 {
@@ -23,12 +21,6 @@ void APWHubActor::BeginPlay()
     GenerateStartActors();
 }
 
-// Called every frame
-void APWHubActor::Tick(float DeltaTime)
-{
-    Super::Tick(DeltaTime);
-}
-
 //Generated started Trops, Leginos and Armies, inicialisated its, and set its on the GlobalMap
 void APWHubActor::GenerateStartActors()
 {
@@ -39,7 +31,7 @@ void APWHubActor::GenerateStartActors()
     if (World) 
     { 
         APWTroopActor* Troop = World->SpawnActor<APWTroopActor>(TroopClass, Transform);
-        Troop->SetOnMapIcon(CreatedType);
+        //Troop->SetOnMapIcon(CreatedType);
         //Troop->SetHubActor(this);
     }
 }

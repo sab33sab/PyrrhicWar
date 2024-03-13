@@ -15,7 +15,11 @@ public class PyrrhicWar : ModuleRules
         PublicIncludePaths.AddRange(new string[]
         {
             "PyrrhicWar/Public/Player",
-            "PyrrhicWar/Public/Units"
+            "PyrrhicWar/Public/Units",
+            "PyrrhicWar/Public/Data",
+            "PyrrhicWar/Public/UI",
+            "PyrrhicWar/Public/Components",
+            "PyrrhicWar/Public/Maps"
         });
 
         // Uncomment if you are using Slate UI

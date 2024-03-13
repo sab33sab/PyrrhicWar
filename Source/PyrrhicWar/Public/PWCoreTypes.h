@@ -1,10 +1,8 @@
 #pragma once
 
-//#include "Units/PWTroopActor.h"
 #include "PaperSprite.h"
 #include "Engine/DataTable.h"
 #include "PWCoreTypes.generated.h"
-
 
 USTRUCT(BlueprintType)
 struct FTroopDataTemp
@@ -47,7 +45,6 @@ enum class EBranch : uint8
     Elephants,
     NONE_BRANCH
 };
-
 
 USTRUCT(BlueprintType)
 struct FTroopData : public FTableRowBase

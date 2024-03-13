@@ -6,9 +6,13 @@
 #include "GameFramework/Pawn.h"
 #include "PWPlayerCameraPawn.generated.h"
 
+//DECLARE_MULTICAST_DELEGATE(FMouseRightClickEvent)
+DECLARE_MULTICAST_DELEGATE(FMouseRightClickEvent)
+
 class USpringArmComponent;
 class UCameraComponent;
 class UStaticMeshComponent;
+class APWCityActor;
 
 UCLASS()
 class PYRRHICWAR_API APWPlayerCameraPawn : public APawn
@@ -43,6 +47,9 @@ protected:
     UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Camera")
     FVector StartCameraPosition = {0.0f, 0.0f, 0.0f};
 
+    UPROPERTY(VisibleAnywhere, Category = "Components")
+    APWCityActor* CurrentCityShownUI = NULL;
+
 public:
     virtual void Tick(float DeltaTime) override;
 
@@ -54,8 +61,9 @@ public:
     void CameraMoveUp(FVector2D MousePosition, FVector2D ViewportSize);
     void CameraMoveDown(FVector2D MousePosition, FVector2D ViewportSize);
 
-    /*
-    void PrintLog(FString CalledFunction, FVector2D MousePosition, FVector2D ViewportSize, float NormalizeMousePosition,
-        float CameraSpeedDecline, FVector CurrentCameraPosition);
-        */
+    void MouseRightClick();
+
+    void CityShownUI(APWCityActor* City);
+
+    FMouseRightClickEvent HideCityUIWidget;
 };

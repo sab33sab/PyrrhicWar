@@ -7,4 +7,5 @@ APWPlayerController::APWPlayerController()
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
     bEnableClickEvents = true;
+    bEnableMouseOverEvents = true;
 }
